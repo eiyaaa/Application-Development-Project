@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Receipt</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order-confirmation.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Emilio_Aguinaldo_College_seal.svg/1200px-Emilio_Aguinaldo_College_seal.svg.png" alt="EAC College Store Logo" class="logo-img">
+            </div>
+            <div class="header-content">
+                <h1>Order Confirmation</h1>
+            </div>
+        </div>
+    </header>
+    <div class="order-confirmation-container">
+        <h2>Thank you for your order!</h2>
+        <p>Your order number is <strong th:text="${order.orderNumber}"></strong>.</p>
+        <p>We have prepared a summary of your order below.</p>
+        
+        <div class="order-details">
+            <h2>Order Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cartItem, iterStat : ${cartItems}">
+                        <td th:text="${cartItem.product.productName}"></td>
+                        <td th:text="${cartItem.quantity}"></td>
+                        <td>₱<span th:text="${cartItem.product.price} + .00"></span></td>
+                        <td>₱<span th:text="${cartItem.product.price * cartItem.quantity} + .00"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="total">Total: ₱<span th:text="${order.total} + .00"></span></h3>
+        </div>
+        <button onclick="window.location.href='/home'" class="home-btn">Back to Home</button>
+    </div>
+</body>
+</html>

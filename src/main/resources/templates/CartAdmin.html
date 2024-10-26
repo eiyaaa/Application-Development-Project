@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-cart.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Emilio_Aguinaldo_College_seal.svg/1200px-Emilio_Aguinaldo_College_seal.svg.png" alt="EAC College Store Logo" class="logo-img">
+            </div>
+            <div class="header-content">
+                <h1>My Cart</h1>
+            </div>
+        </div>
+    </header>
+    <div class="cart-container">
+        <h2>Your Cart Items</h2>
+        <div th:if="${cartItems.isEmpty()}" class="empty-cart">
+            <p>Your cart is empty.</p>
+        </div>
+        <div th:each="cartItem : ${cartItems}" class="cart-item">
+            <img th:src="${cartItem.product.photosImagePath}" alt="Product Image" class="product-img">
+            <div class="item-details">
+                <h3 th:text="${cartItem.product.productName}"></h3>
+                <p>Price: ₱<span th:text="${cartItem.product.price} + .00"></span></p>
+                <div class="quantity-control">
+                    <form th:action="@{/CartAdmin/updateQuantity}" method="post" class="quantity-form">
+                    	<input type="hidden" name="productId" th:value="${cartItem.product.id}">
+                        <button type="submit" name="action" value="decrease" class="quantity-btn">-</button>
+                        <span th:text="${cartItem.quantity}"></span>
+                        <button type="submit" name="action" value="increase" class="quantity-btn">+</button>
+                    </form>
+                </div>
+                <form th:action="@{/CartAdmin/remove}" method="post" class="remove-form">
+                    <input type="hidden" name="productId" th:value="${cartItem.product.id}">
+                    <button type="submit" class="remove-btn">Remove</button>
+                </form>
+            </div>
+        </div>
+        <div class="total-price">
+            <h3>Total Price: ₱<span th:text="${totalPrice} + .00"></span></h3>
+        </div>
+        <div class="continue-shopping">
+            <button onclick="window.location.href='/adminHome'" class="btn">Continue Shopping</button>
+            <button onclick="window.location.href='/AdminOrder_form'" class="btn">Checkout</button>
+        </div>
+    </div>
+</body>
+</html>

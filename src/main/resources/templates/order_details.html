@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Order Details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-order-details.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Emilio_Aguinaldo_College_seal.svg/1200px-Emilio_Aguinaldo_College_seal.svg.png" alt="EAC College Store Logo" class="logo-img">
+            </div>
+            <div class="header-content">
+                <h1>Admin Order Details</h1>
+            </div>
+        </div>
+    </header>
+    <div class="order-details-container">
+        <h2>Order Number: <span th:text="${order.orderNumber}"></span></h2>
+        <p><strong>Customer Name:</strong> <span th:text="${order.firstName} + ' ' + ${order.lastName}"></span></p>
+        <p><strong>Total Price:</strong> <span th:text="'₱' + ${order.total}+0" class="total"></span></p>
+        <h3>Items:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="detail : ${order.orderDetails}">
+                    <td th:text="${detail.product.productName}"></td>
+                    <td th:text="'₱' + ${detail.product.price}+0"></td>
+                    <td th:text="${detail.quantity}"></td>
+                    <td th:text="'₱' + (${detail.total}+0+.00)"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="window.location.href='/orders'" class="back-btn">Back to Admin Order List</button>
+    </div>
+</body>
+</html>

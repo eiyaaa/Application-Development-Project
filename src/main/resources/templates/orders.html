@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/orders.css}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Emilio_Aguinaldo_College_seal.svg/1200px-Emilio_Aguinaldo_College_seal.svg.png" alt="EAC College Store Logo" class="logo-img">
+            </div>
+            <div class="header-content">
+                <h1>Order List</h1>
+            </div>
+        </div>
+    </header>
+    <div class="order-form-container">
+        <h2>Orders</h2>
+        <form th:action="@{/orders}" method="get" class="search-form">
+            <input type="text" name="keyword" placeholder="Search by Order Number, First Name, or Last Name" class="search-input">
+            <button type="submit" class="search-button">Search</button>
+            <button type="reset" class="clear-button" onclick="window.location.href='/orders'">Clear</button>
+        </form>
+        <div class="order-details">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Total Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${listOrders}">
+                        <td th:text="${order.orderNumber}"></td>
+                        <td th:text="${order.firstName}"></td>
+                        <td th:text="${order.lastName}"></td>
+                        <td th:text="'₱' + (${order.total}+0+.00)"></td>
+                        <td><a th:href="@{/order_details/{id}(id=${order.id})}" class="view-details-btn">View Details</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button onclick="window.location.href='/index'" class="home-btn">Back to Dashboard</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+@charset "UTF-8";
+body, h1, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+h2 {
+	font-size: 15px;
+	display: block;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+}
+body {
+    background: linear-gradient(to top right, #ff0000 0%, #ffcccc 100%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+.logo {
+    text-align: left; 
+    margin-left: 20px; 
+    width: 100px;
+    height: 85px;
+}
+
+header {
+    background-color: #cc0000;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    height: 10%;
+    width: 100%; 
+    
+}
+
+.header-content {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.header-content p {
+    font-size: 14px;
+}
+
+.form-container {
+    background-color: #862d2d;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    width: 500px;
+    text-align: center;
+    margin: auto;
+}
+
+.form-control {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid black;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 20px; 
+}
+
+button {
+    background-color: #cc0000;
+    color: #fff;
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff3333;
+}
+
+label {
+    margin-bottom: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.alert {
+    margin-top: 20px;
+    color: #ff3333;
+    font-weight: bold;
+}
+
+.alert-success {
+    color: #28a745;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.reg-text a {
+    color: white;
+    text-align: center;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.reg-text a:hover {
+    text-decoration: underline;
+    color: red; 
+}

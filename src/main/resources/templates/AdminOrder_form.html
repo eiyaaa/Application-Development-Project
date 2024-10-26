@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-order-form.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Emilio_Aguinaldo_College_seal.svg/1200px-Emilio_Aguinaldo_College_seal.svg.png" alt="EAC College Store Logo" class="logo-img">
+            </div>
+            <div class="header-content">
+                <h1>Order Form</h1>
+            </div>
+        </div>
+    </header>
+    <div class="order-form-container">
+        <h2>Review Your Order</h2>
+        <form th:action="@{/AdminOrder_form/update}" method="post">
+            <input type="hidden" name="userId" th:value="${user != null ? user.id : ''}">
+            <div class="order-details" th:if="${user != null}">
+                <h3>Customer Details:</h3>
+                <p>First Name: <span th:text="${user.firstName}"></span></p>
+                <p>Last Name: <span th:text="${user.lastName}"></span></p>
+                <p>Email: <span th:text="${user.email}"></span></p>
+            </div><br>
+            <div class="order-items">
+                <h3>Items:</h3>
+                <div class="item" th:each="cartItem, iterStat : ${cartItems}">
+                    <div class="item-details">
+                        <p>Product: <span th:text="${cartItem.product.productName}"></span></p>
+                        <p>Quantity: <input type="number" name="quantities" th:value="${cartItem.quantity}" min="1"></p>
+                        <p>Price: ₱<span th:text="${cartItem.product.price * cartItem.quantity} + .00"></span></p>
+                        <img th:src="${cartItem.product.photosImagePath}" class="item-details img" alt="Product Photo">
+                    </div>
+                </div>
+            </div>
+            <h3>Total: ₱<span th:text="${total} + .00"></span></h3>
+            <button type="submit" class="submit-btn">Update Quantities</button>
+        </form>
+        <form th:action="@{/AdminOrder_summary}" method="post">
+            <input type="hidden" name="userId" th:value="${user != null ? user.id : ''}">
+            <button type="submit" class="submit-btn">Proceed to Order Summary</button>
+        </form>
+        <button onclick="window.location.href='/CartAdmin'" class="cart-btn">Back to Cart</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/order-summary.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Emilio_Aguinaldo_College_seal.svg/1200px-Emilio_Aguinaldo_College_seal.svg.png" alt="EAC College Store Logo" class="logo-img">
+            </div>
+            <div class="header-content">
+                <h1>Order Summary</h1>
+            </div>
+        </div>
+    </header>
+    <div class="order-form-container">
+        <h2>Thank you for your purchase!</h2>
+        <form th:action="@{/order/save}" method="post">
+            <p>Thank you for your purchase, <strong th:text="${user.firstName} + ' ' + ${user.lastName}"></strong>!</p>
+            <p>Your order number is: <strong th:text="${order.orderNumber}"></strong></p>
+
+            <div class="order-details">
+                <h3>Order Details</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cartItem, iterStat : ${cartItems}">
+                            <td th:text="${cartItem.product.productName}"></td>
+                            <td th:text="${cartItem.quantity}"></td>
+                            <td th:text="'₱' + (${cartItem.product.price * cartItem.quantity}) +0"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="total">Total: ₱<span th:text="${order.total} + .00"></span></p>
+            </div>
+            <button type="submit" class="submit-btn">Confirm Order</button>
+        </form>
+        <button onclick="window.location.href='/order_form'" class="home-btn">Back to Order Form</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAC Online Store</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-page.css}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Emilio_Aguinaldo_College_seal.svg/1200px-Emilio_Aguinaldo_College_seal.svg.png" alt="EAC College Store Logo" class="logo">
+            </div>
+            <div class="header-content">
+                <h1>Emilian's Store</h1><br>
+                <div class="button-row">
+                    <div class="header-buttons">
+                        <input type="text" id="searchInput" class="search-bar" placeholder="Search for products" oninput="searchProducts()">
+                        <button onclick="searchProducts()">Search</button>
+                        <button class="cart-button" onclick="window.location.href='/CartAdmin'">My Cart</button>
+                        <button class="cart-button" onclick="window.location.href='/index'">My Products</button>
+                        <button onclick="window.location.href='/login'">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="product-container">
+        <h2>Featured Products</h2>
+        <div class="product-list">
+            <div th:each="product : ${listProduct}" class="product-card">
+                <img th:src="${product.photosImagePath}" alt="Product Image">
+                <h3 th:text="${product.productName}"></h3>
+                <p th:text="'₱' + (${product.price}) + '0'"></p>
+                <form th:action="@{/CartAdmin/add}" method="post">
+                    <input type="hidden" name="productId" th:value="${product.id}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 EAC Store. All rights reserved.</p>
+    </footer>
+    <script>
+    function searchProducts() {
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toUpperCase();
+        var products = document.getElementsByClassName("product-card");
+        var productList = document.getElementById("productList");
+
+        for (var i = 0; i < products.length; i++) {
+            var productName = products[i].getElementsByTagName("h3")[0];
+            if (productName.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                products[i].style.display = "";
+            } else {
+                products[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+</body>
+</html>
